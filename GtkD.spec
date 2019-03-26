@@ -4,13 +4,14 @@
 #
 Name     : GtkD
 Version  : 3.8.5
-Release  : 1
+Release  : 2
 URL      : https://github.com/gtkd-developers/GtkD/archive/v3.8.5.tar.gz
 Source0  : https://github.com/gtkd-developers/GtkD/archive/v3.8.5.tar.gz
 Summary  : D bindings for GTK+ and related libraries.
 Group    : Development/Tools
 License  : LGPL-2.0 LGPL-2.1 LGPL-3.0
 Requires: GtkD-license = %{version}-%{release}
+BuildRequires : buildreq-gnome
 BuildRequires : glib-dev
 BuildRequires : gtk3-dev
 BuildRequires : ldc
@@ -50,7 +51,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1553612489
+export SOURCE_DATE_EPOCH=1553612736
 export CC=clang
 export CXX=clang++
 export LD=ld.gold
@@ -59,7 +60,7 @@ make  %{?_smp_mflags}
 
 
 %install
-export SOURCE_DATE_EPOCH=1553612489
+export SOURCE_DATE_EPOCH=1553612736
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/GtkD
 cp COPYING %{buildroot}/usr/share/package-licenses/GtkD/COPYING
