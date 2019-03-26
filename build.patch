@@ -7,3 +7,14 @@
  PKG_CONFIG?=pkg-config
  
  OS=$(shell uname || uname -s)
+--- unzip/GNUmakefile~	2019-03-26 14:57:28.000000000 +0000
++++ unzip/GNUmakefile	2019-03-26 15:33:56.800993461 +0000
+@@ -7,7 +7,7 @@
+ 
+ datadir?=$(prefix)/share
+ ifeq (, $(shell which dpkg-architecture 2>/dev/null))
+-	libdir?=lib/
++	libdir?=lib64/
+ else
+ 	libdir?=lib/$(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+ endif

@@ -4,12 +4,13 @@
 #
 Name     : GtkD
 Version  : 3.8.5
-Release  : 2
+Release  : 3
 URL      : https://github.com/gtkd-developers/GtkD/archive/v3.8.5.tar.gz
 Source0  : https://github.com/gtkd-developers/GtkD/archive/v3.8.5.tar.gz
 Summary  : D bindings for GTK+ and related libraries.
 Group    : Development/Tools
 License  : LGPL-2.0 LGPL-2.1 LGPL-3.0
+Requires: GtkD-lib = %{version}-%{release}
 Requires: GtkD-license = %{version}-%{release}
 BuildRequires : buildreq-gnome
 BuildRequires : glib-dev
@@ -27,11 +28,21 @@ is release on the LGPL license with additional exceptions.
 %package dev
 Summary: dev components for the GtkD package.
 Group: Development
+Requires: GtkD-lib = %{version}-%{release}
 Provides: GtkD-devel = %{version}-%{release}
 Requires: GtkD = %{version}-%{release}
 
 %description dev
 dev components for the GtkD package.
+
+
+%package lib
+Summary: lib components for the GtkD package.
+Group: Libraries
+Requires: GtkD-license = %{version}-%{release}
+
+%description lib
+lib components for the GtkD package.
 
 
 %package license
@@ -51,20 +62,20 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1553612736
+export SOURCE_DATE_EPOCH=1553616056
 export CC=clang
 export CXX=clang++
 export LD=ld.gold
 unset LDFLAGS
-make  %{?_smp_mflags}
+make  %{?_smp_mflags} shared-libs
 
 
 %install
-export SOURCE_DATE_EPOCH=1553612736
+export SOURCE_DATE_EPOCH=1553616056
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/GtkD
 cp COPYING %{buildroot}/usr/share/package-licenses/GtkD/COPYING
-%make_install
+%make_install install-shared
 
 %files
 %defattr(-,root,root,-)
@@ -1166,11 +1177,29 @@ cp COPYING %{buildroot}/usr/share/package-licenses/GtkD/COPYING
 /usr/include/d/gtkd-3/vte/c/types.d
 /usr/include/d/gtkd-3/vtec/vte.d
 /usr/include/d/gtkd-3/vtec/vtetypes.d
+/usr/lib64/libgstreamerd-3.so
+/usr/lib64/libgtkd-3.so
+/usr/lib64/libgtkdsv-3.so
+/usr/lib64/libpeasd-3.so
+/usr/lib64/libvted-3.so
 /usr/lib64/pkgconfig/gstreamerd-3.pc
 /usr/lib64/pkgconfig/gtkd-3.pc
 /usr/lib64/pkgconfig/gtkdsv-3.pc
 /usr/lib64/pkgconfig/peasd-3.pc
 /usr/lib64/pkgconfig/vted-3.pc
+
+%files lib
+%defattr(-,root,root,-)
+/usr/lib64/libgstreamerd-3.so.0
+/usr/lib64/libgstreamerd-3.so.0.8.5
+/usr/lib64/libgtkd-3.so.0
+/usr/lib64/libgtkd-3.so.0.8.5
+/usr/lib64/libgtkdsv-3.so.0
+/usr/lib64/libgtkdsv-3.so.0.8.5
+/usr/lib64/libpeasd-3.so.0
+/usr/lib64/libpeasd-3.so.0.8.5
+/usr/lib64/libvted-3.so.0
+/usr/lib64/libvted-3.so.0.8.5
 
 %files license
 %defattr(0644,root,root,0755)
