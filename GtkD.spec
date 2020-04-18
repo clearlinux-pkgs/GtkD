@@ -4,7 +4,7 @@
 #
 Name     : GtkD
 Version  : 3.9.0
-Release  : 7
+Release  : 8
 URL      : https://github.com/gtkd-developers/GtkD/archive/v3.9.0.tar.gz
 Source0  : https://github.com/gtkd-developers/GtkD/archive/v3.9.0.tar.gz
 Summary  : No detailed summary available
@@ -19,6 +19,7 @@ BuildRequires : ldc
 BuildRequires : ldc-dev
 BuildRequires : llvm
 Patch1: build.patch
+Patch2: 0001-makefile-fix-install-path-for-pkconfig-files-273.patch
 
 %description
 # GtkD
@@ -55,31 +56,35 @@ license components for the GtkD package.
 
 %prep
 %setup -q -n GtkD-3.9.0
+cd %{_builddir}/GtkD-3.9.0
 %patch1 -p1
+%patch2 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1568700379
+export SOURCE_DATE_EPOCH=1587244736
 export GCC_IGNORE_WERROR=1
 export CC=clang
 export CXX=clang++
 export LD=ld.gold
+CFLAGS=${CFLAGS/ -Wa,/ -fno-integrated-as -Wa,}
+CXXFLAGS=${CXXFLAGS/ -Wa,/ -fno-integrated-as -Wa,}
 unset LDFLAGS
 export CFLAGS="$CFLAGS -fno-lto "
-export FCFLAGS="$CFLAGS -fno-lto "
-export FFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$FFLAGS -fno-lto "
+export FFLAGS="$FFLAGS -fno-lto "
 export CXXFLAGS="$CXXFLAGS -fno-lto "
-make  %{?_smp_mflags} shared-libs
+make  %{?_smp_mflags}  shared-libs
 
 
 %install
-export SOURCE_DATE_EPOCH=1568700379
+export SOURCE_DATE_EPOCH=1587244736
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/GtkD
-cp COPYING %{buildroot}/usr/share/package-licenses/GtkD/COPYING
+cp %{_builddir}/GtkD-3.9.0/COPYING %{buildroot}/usr/share/package-licenses/GtkD/9c1e3834e41e7ae10fafe44f7185c19f183b3285
 %make_install install-shared
 
 %files
@@ -1210,6 +1215,11 @@ cp COPYING %{buildroot}/usr/share/package-licenses/GtkD/COPYING
 /usr/lib64/libgtkdsv-3.so
 /usr/lib64/libpeasd-3.so
 /usr/lib64/libvted-3.so
+/usr/lib64/pkgconfig/gstreamerd-3.pc
+/usr/lib64/pkgconfig/gtkd-3.pc
+/usr/lib64/pkgconfig/gtkdsv-3.pc
+/usr/lib64/pkgconfig/peasd-3.pc
+/usr/lib64/pkgconfig/vted-3.pc
 
 %files lib
 %defattr(-,root,root,-)
@@ -1226,4 +1236,4 @@ cp COPYING %{buildroot}/usr/share/package-licenses/GtkD/COPYING
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/GtkD/COPYING
+/usr/share/package-licenses/GtkD/9c1e3834e41e7ae10fafe44f7185c19f183b3285
