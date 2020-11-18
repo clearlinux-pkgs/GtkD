@@ -1,2 +1,7 @@
 build.patch
 0001-makefile-fix-install-path-for-pkconfig-files-273.patch
+0002-pkg-config-list-required-C-libs-as-Requires.private.patch
+0003-pkg-config-use-non-private-requires.patch
+0004-Fix-SOFLAGS.patch
+0005-Fix-deprecation-warnings-with-dmd-2.094.patch
+0006-Fix-append-of-link-defaultlib-shared-option.patch

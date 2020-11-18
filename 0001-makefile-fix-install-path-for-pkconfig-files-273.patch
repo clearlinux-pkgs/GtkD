@@ -20,7 +20,7 @@ Signed-off-by: Filipe Laíns <lains@archlinux.org>
  1 file changed, 13 insertions(+), 13 deletions(-)
 
 diff --git a/GNUmakefile b/GNUmakefile
-index eece100..8b5c1e8 100644
+index c43e728..30a346b 100644
 --- a/GNUmakefile
 +++ b/GNUmakefile
 @@ -368,33 +368,33 @@ install-shared-peas: $(SONAME_PEASD) install-shared-gtkd

@@ -1,0 +1,65 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Greg V <greg@unrelenting.technology>
+Date: Wed, 10 Jul 2019 02:13:40 +0300
+Subject: [PATCH] pkg-config: list required C libs as Requires.private
+
+This is required for dynamic linking, otherwise consumers (like Tilix) get very fun errors like
+'ld: error: /usr/local/lib/libgtkd-3.so: undefined reference to g_module_build_path'.
+
+The actual C libs themselves do fill out this field.
+---
+ GNUmakefile | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/GNUmakefile b/GNUmakefile
+index 30a346b..ff867bd 100644
+--- a/GNUmakefile
++++ b/GNUmakefile
+@@ -280,6 +280,7 @@ gtkd-$(MAJOR).pc:
+ 	echo Version: $(GTKD_VERSION) >> $@
+ 	echo Libs: $(LINKERFLAG)-L$(prefix)/$(libdir)/ $(LINKERFLAG)-lgtkd-$(MAJOR) $(LINKERFLAG)-ldl >> $@
+ 	echo Cflags: -I$(prefix)/include/d/gtkd-$(MAJOR)/ >> $@
++	echo Requires.private: gtk+-3.0, gdk-3.0, atk, pango, cairo, cairo-gobject, pangocairo, librsvg-2.0, gio-2.0, glib-2.0, gobject-2.0, gmodule-2.0 >> $@
+ 
+ gtkdgl-$(MAJOR).pc:
+ 	echo Name: GtkDGL > $@
+@@ -287,6 +288,7 @@ gtkdgl-$(MAJOR).pc:
+ 	echo Version: $(GTKD_VERSION) >> $@
+ 	echo Libs: $(LINKERFLAG)-lgtkdgl-$(MAJOR) >> $@
+ 	echo Requires: gtkd-$(MAJOR) >> $@
++	echo Requires.private: gtkglext-1.0 >> $@
+ 
+ gtkdsv-$(MAJOR).pc:
+ 	echo Name: GtkD SourceView > $@
+@@ -294,6 +296,7 @@ gtkdsv-$(MAJOR).pc:
+ 	echo Version: $(GTKD_VERSION) >> $@
+ 	echo Libs: $(LINKERFLAG)-lgtkdsv-$(MAJOR) >> $@
+ 	echo Requires: gtkd-$(MAJOR) >> $@
++	echo Requires.private: gtksourceview-3.0 >> $@
+ 
+ gstreamerd-$(MAJOR).pc:
+ 	echo Name: GstreamerD > $@
+@@ -301,6 +304,7 @@ gstreamerd-$(MAJOR).pc:
+ 	echo Version: $(GTKD_VERSION) >> $@
+ 	echo Libs: $(LINKERFLAG)-lgstreamerd-$(MAJOR) >> $@
+ 	echo Requires: gtkd-$(MAJOR) >> $@
++	echo Requires.private: gstreamer-1.0, gstreamer-base-1.0 >> $@
+ 
+ vted-$(MAJOR).pc:
+ 	echo Name: VteD > $@
+@@ -308,6 +312,7 @@ vted-$(MAJOR).pc:
+ 	echo Version: $(GTKD_VERSION) >> $@
+ 	echo Libs: $(LINKERFLAG)-lvted-$(MAJOR) >> $@
+ 	echo Requires: gtkd-$(MAJOR) >> $@
++	echo Requires.private: vte-2.91 >> $@
+ 
+ peasd-$(MAJOR).pc:
+ 	echo Name: PeasD > $@
+@@ -315,6 +320,7 @@ peasd-$(MAJOR).pc:
+ 	echo Version: $(GTKD_VERSION) >> $@
+ 	echo Libs: $(LINKERFLAG)-lpeasd-$(MAJOR) >> $@
+ 	echo Requires: gtkd-$(MAJOR) >> $@
++	echo Requires.private: libpeas-1.0, libpeas-gtk-1.0 >> $@
+ 
+ #######################################################################
+ 

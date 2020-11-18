@@ -1,0 +1,23 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Patrick McCarty <patrick.mccarty@intel.com>
+Date: Wed, 18 Nov 2020 01:32:35 +0000
+Subject: [PATCH] Fix append of link-defaultlib-shared option
+
+Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
+---
+ GNUmakefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/GNUmakefile b/GNUmakefile
+index 77f714c..8fef4f2 100644
+--- a/GNUmakefile
++++ b/GNUmakefile
+@@ -461,7 +461,7 @@ endef
+ define make-shared-lib
+ 	$(if $(filter-out "Darwin","$(OS)"), $(if $(findstring "dmd","$(DC)"),$(eval LDFLAGS+=-defaultlib=:libphobos2.so)))
+ 	$(if $(findstring "gdc","$(DC)"),$(eval LDFLAGS+=-shared-libphobos))
+-	$(if $(findstring "ldc","$(DC)"),$(eval LDFLAGS+=-link-defaultlib-shared))
++	$(if $(findstring ldc,$(DC)),$(eval LDFLAGS+=-link-defaultlib-shared))
+ 
+ 	$(DC) -shared $(output) $(LDFLAGS) $1 $(SONAME) $(subst $(SONAME_GTKD),,$^)
+ endef

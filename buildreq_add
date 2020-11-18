@@ -1,7 +1,9 @@
 # This file contains additional build requirements that did not get
 # picked up automatically. One name per line, no whitespace.
+buildreq-gnome
+glib-dev
+gtk3-dev
 ldc
 ldc-dev
-gtk3-dev
-glib-dev
-buildreq-gnome
+vte-dev
+which

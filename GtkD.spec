@@ -4,7 +4,7 @@
 #
 Name     : GtkD
 Version  : 3.9.0
-Release  : 10
+Release  : 11
 URL      : https://github.com/gtkd-developers/GtkD/archive/v3.9.0.tar.gz
 Source0  : https://github.com/gtkd-developers/GtkD/archive/v3.9.0.tar.gz
 Summary  : No detailed summary available
@@ -18,8 +18,15 @@ BuildRequires : gtk3-dev
 BuildRequires : ldc
 BuildRequires : ldc-dev
 BuildRequires : llvm
+BuildRequires : vte-dev
+BuildRequires : which
 Patch1: build.patch
 Patch2: 0001-makefile-fix-install-path-for-pkconfig-files-273.patch
+Patch3: 0002-pkg-config-list-required-C-libs-as-Requires.private.patch
+Patch4: 0003-pkg-config-use-non-private-requires.patch
+Patch5: 0004-Fix-SOFLAGS.patch
+Patch6: 0005-Fix-deprecation-warnings-with-dmd-2.094.patch
+Patch7: 0006-Fix-append-of-link-defaultlib-shared-option.patch
 
 %description
 # GtkD
@@ -59,13 +66,18 @@ license components for the GtkD package.
 cd %{_builddir}/GtkD-3.9.0
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
+%patch4 -p1
+%patch5 -p1
+%patch6 -p1
+%patch7 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1588027785
+export SOURCE_DATE_EPOCH=1605663369
 export GCC_IGNORE_WERROR=1
 export CC=clang
 export CXX=clang++
@@ -81,11 +93,11 @@ make  %{?_smp_mflags}  shared-libs
 
 
 %install
-export SOURCE_DATE_EPOCH=1588027785
+export SOURCE_DATE_EPOCH=1605663369
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/GtkD
 cp %{_builddir}/GtkD-3.9.0/COPYING %{buildroot}/usr/share/package-licenses/GtkD/9c1e3834e41e7ae10fafe44f7185c19f183b3285
-%make_install install-shared
+make DESTDIR=%{buildroot} install-shared install-headers
 
 %files
 %defattr(-,root,root,-)
