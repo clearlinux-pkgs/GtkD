@@ -4,7 +4,7 @@
 #
 Name     : GtkD
 Version  : 3.9.0
-Release  : 11
+Release  : 12
 URL      : https://github.com/gtkd-developers/GtkD/archive/v3.9.0.tar.gz
 Source0  : https://github.com/gtkd-developers/GtkD/archive/v3.9.0.tar.gz
 Summary  : No detailed summary available
@@ -77,7 +77,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1605663369
+export SOURCE_DATE_EPOCH=1618970374
 export GCC_IGNORE_WERROR=1
 export CC=clang
 export CXX=clang++
@@ -93,7 +93,7 @@ make  %{?_smp_mflags}  shared-libs
 
 
 %install
-export SOURCE_DATE_EPOCH=1605663369
+export SOURCE_DATE_EPOCH=1618970374
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/GtkD
 cp %{_builddir}/GtkD-3.9.0/COPYING %{buildroot}/usr/share/package-licenses/GtkD/9c1e3834e41e7ae10fafe44f7185c19f183b3285
